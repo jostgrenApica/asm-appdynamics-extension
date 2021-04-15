@@ -1,0 +1,47 @@
+<monitor>
+	<name>ApicaMonitor</name>
+	<type>managed</type>
+	<description>Reports check metrics from Apica API </description>
+	<monitor-configuration></monitor-configuration>
+	<monitor-run-task>
+		<execution-style>periodic</execution-style>
+		<!--<execution-style>periodic</execution-style> -->
+		<execution-frequency-in-seconds>60</execution-frequency-in-seconds>
+		<name>Apica Monitor Run Task</name>
+		<display-name>Apica Monitor Task</display-name>
+		<description>Apica Monitor Task</description>
+		<type>java</type>
+		<java-task>
+			<classpath>apicaAppdynamicsMetrics-2.0-full.jar</classpath>
+			<impl-class>com.apicasystems.integration.appdynamics.ApicaMonitor
+			</impl-class>
+		</java-task>
+		<task-arguments>
+			<!-- AuthTicket: You will find this value from API section of the Apica 
+				Synthetic Monitoring suite. BaseApiUrl: This is the URL to the API. Should 
+				end with a slash. -->
+			<argument name="AuthTicket" is-required="true"
+				default-value="{replace this with apica api auth_ticket uuid}" />
+
+			<!-- Do not change manually unless you have on-prem installation -->
+			<argument name="BaseApiUrl" is-required="true"
+				default-value="https://api-wpm.apicasystem.com/v3" />
+			<!-- Do not change manually unless you have on-prem installation -->
+			<argument name="TagName" is-required="false"
+				default-value="" />
+			<!-- Optional proxy settings for connection ASM -->
+			<argument name="ProxyHost" is-required="false"
+				default-value="" />
+			<argument name="ProxyPort" is-required="false"
+				default-value="" />
+			<!-- http (default) or https -->
+			<argument name="ProxyScheme" is-required="false"
+				default-value="" />
+
+			<!-- CONFIGURE METRIC PATH You can change the metric path where to store 
+				the checks and their values under. The default is: Custom Metrics|Apica -->
+			<argument name="Metric-Path" is-required="false"
+				default-value="Custom Metrics|Apica ASM" />
+		</task-arguments>
+	</monitor-run-task>
+</monitor>
